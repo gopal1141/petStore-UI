@@ -1,0 +1,42 @@
+<form #petForm="ngForm">
+  <div class="form-group row">
+    <div class="col-xs-12">
+      <label for="">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="pet.name" name="name" required #name="ngModel">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+      </div>
+      <label for="">Category</label>
+      <select class="form-control" [(ngModel)]="pet.category" name="category" required #category="ngModel">
+        <option *ngFor="let categoryItem of categoryList" [ngValue]="categoryItem">{{categoryItem.description}}</option>
+      </select>
+      <div *ngIf="category.invalid && (category.dirty || category.touched)" class="alert alert-danger">
+        <div *ngIf="category.errors.required">
+            Category is required
+        </div>
+      </div>
+      <label for="">Status</label>
+      <select class="form-control" [(ngModel)]="pet.status" name="status" required #status="ngModel">
+        <option *ngFor="let statusItem of statusList" [value]="statusItem">{{statusItem}}</option>
+      </select>
+      <div *ngIf="status.invalid && (status.dirty || status.touched)" class="alert alert-danger">
+        <div *ngIf="status.errors.required">
+            Status is required
+        </div>
+      </div>
+      <!-- <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+          {{selectedStatus !== null ? selectedStatus : 'Select the Status'}}
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let status of statusList"><a (click)="selectedItem(status)">{{status}}</a></li>
+        </ul>
+      </div> -->
+      <br>
+      <button class="btn btn-primary" [disabled]="!petForm.form.valid" (click)="addPet($event)">Add</button>
+      <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+  </div>
+</div>
+</form>

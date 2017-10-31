@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>photo</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let petres of pet">
+      <td>{{petres.id}}</td>
+      <td>{{petres.name}}</td>
+      <td>{{petres.category.description}}</td>
+      <td>{{petres.photoURL}}</td>
+      <td>{{petres.status}}</td>
+    </tr>
+  </tbody>
+</table>
