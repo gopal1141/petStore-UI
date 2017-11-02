@@ -10,12 +10,19 @@ import { Pet } from '../pet.model';
 export class HomeComponent implements OnInit {
 
   constructor(private petService: PetService) { }
-  pet: Pet;
+  pet: Pet[];
   ngOnInit() {
     this.petService.getAvailablePets()
     .subscribe(
       (response) => {this.pet = response;},
       (error) => console.log(error)
+    );
+  }
+
+  deletePet(id, index) {
+    this.petService.deletePet(id).subscribe(
+      (response) => {this.pet.splice(index, 1)},
+      (error) => (console.log(error))
     );
   }
 

@@ -18,7 +18,9 @@ export class AddComponent implements OnInit {
 
   statusList : Array<String> = ['Available', 'Pending', 'Sold'];
   pet: Pet = new Pet(null, null, null, null, null);
-  categoryList: Category[] = [{id: '1', description:'Dog'},{id: '2', description:'Cat'},{id: '3', description:'Bird'}]
+  categoryList: Category[] = [{id: '1', description:'Dog'},{id: '2', description:'Cat'},{id: '3', description:'Bird'}];
+  success : boolean = false;
+  clicked : boolean = false;
   // selectedStatus : String = null;
   //
   // selectedItem(selectedStatus) {
@@ -27,8 +29,16 @@ export class AddComponent implements OnInit {
 
   addPet() {
     this.petService.addNewPet(this.pet).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
+      (response) => {
+        this.clicked = true;
+        this.pet = response;
+        this.success = true;
+      },
+      (error) => {
+        console.log(error);
+        this.success = false;
+        this.clicked = true;
+      }
     );
   }
 

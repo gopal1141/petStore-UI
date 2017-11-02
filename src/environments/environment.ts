@@ -4,5 +4,8 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  list: "http://localhost:5000/pet/list",
+  create: "http://localhost:5000/pet/create",
+  delete: "http://localhost:5000/pet/"
 };

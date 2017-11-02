@@ -1,6 +1,14 @@
 <form #petForm="ngForm">
+  <div class="row">
+    <div *ngIf="success && clicked" class=" alert alert-success col-xs-12 col=sm-12 col-md-12">
+      Pet added successfully. ID : {{pet.id}}
+    </div>
+    <div *ngIf="!success && clicked" class=" alert alert-danger col-xs-12 col=sm-12 col-md-12">
+      Error occured. Please retry.
+    </div>
+  </div>
   <div class="form-group row">
-    <div class="col-xs-12">
+    <div class="col-xs-12 col=sm-12 col-md-12">
       <label for="">Name</label>
       <input type="text" class="form-control" [(ngModel)]="pet.name" name="name" required #name="ngModel">
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
@@ -26,6 +34,8 @@
             Status is required
         </div>
       </div>
+      <label for="">Photo URL</label>
+      <input type="text" class="form-control" [(ngModel)]="pet.photoURL" name="photourl">
       <!-- <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
           {{selectedStatus !== null ? selectedStatus : 'Select the Status'}}
@@ -35,8 +45,8 @@
         </ul>
       </div> -->
       <br>
-      <button class="btn btn-primary" [disabled]="!petForm.form.valid" (click)="addPet($event)">Add</button>
-      <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+      <button class="btn btn-primary" [disabled]="!petForm.form.valid" (click)="addPet()">Add</button>
+      <button class="btn btn-danger" routerLink="/">Cancel</button>
   </div>
 </div>
 </form>
