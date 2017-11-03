@@ -9,8 +9,15 @@ import { Pet } from '../pet.model';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private petService: PetService) { }
+  filterQuery = "";
+  rowsOnPage = 5;
+  sortBy = "id";
+  sortOrder = "asc";
   pet: Pet[];
+  statusList : Array<String> = ['All','Available', 'Pending', 'Sold'];
+  selectedStatus : String = 'All';
+
+  constructor(private petService: PetService) { }
   ngOnInit() {
     this.petService.getAvailablePets()
     .subscribe(
@@ -24,6 +31,10 @@ export class HomeComponent implements OnInit {
       (response) => {this.pet.splice(index, 1)},
       (error) => (console.log(error))
     );
+  }
+
+  onChange(event) {
+    this.selectedStatus = event.target.value;
   }
 
 }

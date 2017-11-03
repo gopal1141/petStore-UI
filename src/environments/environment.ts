@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  list: "http://localhost:5000/pet/list",
+  list: "http://localhost:5000/pet/listAll",
   create: "http://localhost:5000/pet/create",
   delete: "http://localhost:5000/pet/"
 };

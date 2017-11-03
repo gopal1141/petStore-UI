@@ -10,6 +10,9 @@ import { AddComponent } from './add/add.component';
 import { DeleteComponent } from './delete/delete.component';
 import { HeaderComponent } from './header/header.component';
 import { PetService } from './pet.service';
+import { FilterPipe } from './data-filter.pipe';
+
+import { DataTableModule } from "angular2-datatable";
 
 const routes : Routes = [
   {path: '', component:HomeComponent},
@@ -22,13 +25,15 @@ const routes : Routes = [
     HomeComponent,
     AddComponent,
     DeleteComponent,
-    HeaderComponent
+    HeaderComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpModule,
-    FormsModule
+    FormsModule,
+    DataTableModule
   ],
   providers: [PetService],
   bootstrap: [AppComponent]

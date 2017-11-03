@@ -1,18 +1,28 @@
-<table class="table table-striped">
+<div class="row">
+  <div class="col-xs-12 col=sm-12 col-md-12">
+    <label for="">Filter By Status</label>
+    <select (change)="onChange($event)">
+      <option *ngFor="let statusItem of statusList" [value]="statusItem">{{statusItem}}</option>
+    </select>
+  </div>
+</div>
+<br>
+<table class="table table-striped table-responsive" [mfData]="pet | filter : selectedStatus" #mf="mfDataTable"
+      [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
   <thead>
-    <tr>
-      <th>Id</th>
-      <th>Name</th>
-      <th>Category</th>
+    <tr class="info">
+      <th><mfDefaultSorter by="id">Id</mfDefaultSorter></th>
+      <th><mfDefaultSorter by="name">Name</mfDefaultSorter></th>
+      <th><mfDefaultSorter by="category.description">Category</mfDefaultSorter></th>
       <th>photo</th>
-      <th>Status</th>
+      <th><mfDefaultSorter by="status">Status</mfDefaultSorter></th>
       <th>Delete</th>
     </tr>
   </thead>
   <tbody>
     <div *ngIf="pet?.length === 0; else elseBlock">No pets available</div>
     <ng-template #elseBlock>
-      <tr *ngFor="let petres of pet; let i = index">
+      <tr *ngFor="let petres of mf.data; let i = index">
         <td>{{petres.id}}</td>
         <td>{{petres.name}}</td>
         <td>{{petres.category.description}}</td>
@@ -27,4 +37,11 @@
       </tr>
     </ng-template>
   </tbody>
+  <tfoot>
+    <tr>
+        <td colspan="6">
+            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+        </td>
+    </tr>
+    </tfoot>
 </table>
