@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule  } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -11,8 +11,11 @@ import { DeleteComponent } from './delete/delete.component';
 import { HeaderComponent } from './header/header.component';
 import { PetService } from './pet.service';
 import { FilterPipe } from './data-filter.pipe';
+import { HighlightDirective } from './highlight.directive';
+import { HttpsRequestInterceptor } from './interceptor.module';
 
 import { DataTableModule } from "angular2-datatable";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 const routes : Routes = [
   {path: '', component:HomeComponent},
@@ -26,16 +29,17 @@ const routes : Routes = [
     AddComponent,
     DeleteComponent,
     HeaderComponent,
-    FilterPipe
+    FilterPipe,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpModule,
+    HttpClientModule ,
     FormsModule,
     DataTableModule
   ],
-  providers: [PetService],
+  providers: [PetService, { provide: HTTP_INTERCEPTORS, useClass: HttpsRequestInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

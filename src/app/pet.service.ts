@@ -1,4 +1,4 @@
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 
@@ -7,29 +7,17 @@ import { environment } from '../environments/environment';
 
 @Injectable()
 export class PetService {
-  constructor (private http: Http) {
+  constructor (private http: HttpClient) {
   }
   getAvailablePets() {
-     return this.http.get(environment.list)
-     .map(
-       (response : Response) => {
-         const pet: Pet[] = response.json();
-         return pet;
-       }
-     );
+     return this.http.get<Pet[]>(environment.list);
   }
 
   addNewPet(petInput: Pet) {
-    return this.http.post(environment.create, petInput)
-    .map(
-      (response : Response) => {
-        const pet: Pet = response.json();
-        return pet;
-      }
-    );
+    return this.http.post<Pet>(environment.create, petInput);
   }
 
   deletePet(id) {
-    return this.http.delete(environment.delete + id);
+    return this.http.delete<Pet>(environment.delete + id);
   }
 }
